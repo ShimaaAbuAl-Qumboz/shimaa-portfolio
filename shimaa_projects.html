@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Shimaa N. Abu Al-Qumboz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0ea;
+    --warm-white: #faf7f3;
+    --blush: #e8d5c4;
+    --sage: #b8c4b1;
+    --charcoal: #2a2420;
+    --mid: #6b5f58;
+    --accent: #c4956a;
+    --light-accent: #f0e4d7;
+
+    --tahrar-bg: #e8f4f3;
+    --tahrar-accent: #48C0BB;
+    --eta-bg: #e8eef5;
+    --eta-accent: #529BD5;
+    --infinity-bg: #fdf6d8;
+    --infinity-accent: #e6c830;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,247,243,0.9);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(196,149,106,0.15);
+  }
+
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+
+  nav .back-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s;
+  }
+
+  nav .back-link:hover { color: var(--accent); }
+
+  nav .back-link svg { width: 14px; height: 14px; }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 9rem 3rem 4rem;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: 'WORK';
+    position: absolute;
+    right: -0.02em;
+    bottom: -0.15em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18vw;
+    font-weight: 300;
+    color: rgba(196,149,106,0.07);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .page-header .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-header .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.1s forwards;
+  }
+
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.25s forwards;
+  }
+
+  .page-header h1 em { font-style: italic; color: var(--accent); }
+
+  .filter-bar {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .filter-btn {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    border: 1px solid var(--blush);
+    background: transparent;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--charcoal);
+    color: var(--warm-white);
+    border-color: var(--charcoal);
+  }
+
+  /* ── PROJECT GRID ── */
+  .projects-section {
+    padding: 4rem 3rem 8rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  /* ── PROJECT CARD ── */
+  .proj-card {
+    background: var(--warm-white);
+    border: 1px solid rgba(196,149,106,0.12);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s;
+    position: relative;
+  }
+
+  .proj-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 64px rgba(42,36,32,0.12);
+  }
+
+  .proj-card:hover .card-overlay { opacity: 1; }
+  .proj-card:hover .card-img { transform: scale(1.04); }
+
+  .card-visual {
+    position: relative;
+    height: 230px;
+    overflow: hidden;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .card-img.tahrar { background: var(--tahrar-bg); }
+  .card-img.eta    { background: var(--eta-bg); }
+  .card-img.inf    { background: var(--infinity-bg); }
+
+  .card-big-icon {
+    font-size: 4.5rem;
+    opacity: 0.8;
+  }
+
+  .card-num {
+    position: absolute;
+    top: 1rem;
+    left: 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--charcoal);
+    opacity: 0.35;
+  }
+
+  .card-tag-badge {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(6px);
+    color: var(--charcoal);
+    border: 1px solid rgba(196,149,106,0.2);
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(42,36,32,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card-overlay span {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 0.55rem 1.3rem;
+  }
+
+  .card-body {
+    padding: 1.5rem 1.5rem 1.8rem;
+  }
+
+  .card-body .cat {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .card-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 300;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-body p {
+    font-size: 0.83rem;
+    line-height: 1.7;
+    color: var(--mid);
+    margin-bottom: 1.1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .card-meta .duration {
+    font-size: 0.7rem;
+    color: var(--mid);
+    opacity: 0.6;
+    letter-spacing: 0.06em;
+  }
+
+  .card-meta .role-pill {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--blush);
+    padding: 0.2rem 0.6rem;
+    color: var(--mid);
+  }
+
+  /* ── FEATURED (WIDE) CARD ── */
+  .proj-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+  }
+
+  .proj-card.featured .card-visual {
+    height: auto;
+    min-height: 320px;
+  }
+
+  .proj-card.featured .card-body {
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .proj-card.featured .card-body h3 {
+    font-size: 2.8rem;
+  }
+
+  .proj-card.featured .card-body p {
+    -webkit-line-clamp: 4;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(42,36,32,0.7);
+    backdrop-filter: blur(6px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: var(--warm-white);
+    max-width: 860px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(30px) scale(0.98);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .modal-overlay.open .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    width: 36px;
+    height: 36px;
+    background: var(--charcoal);
+    color: var(--warm-white);
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.2s;
+  }
+
+  .modal-close:hover { background: var(--accent); }
+
+  .modal-hero {
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+  }
+
+  .modal-hero .m-num {
+    position: absolute;
+    bottom: 1rem;
+    left: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 7rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.2);
+    line-height: 1;
+  }
+
+  .modal-body {
+    padding: 2.5rem 3rem 3rem;
+  }
+
+  .modal-body .m-cat {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-body h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    margin-bottom: 0.3rem;
+  }
+
+  .modal-body .m-meta {
+    font-size: 0.75rem;
+    color: var(--mid);
+    opacity: 0.6;
+    margin-bottom: 2rem;
+    letter-spacing: 0.06em;
+  }
+
+  .modal-section {
+    margin-bottom: 2rem;
+  }
+
+  .modal-section h4 {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--blush);
+  }
+
+  .modal-section p {
+    font-size: 0.9rem;
+    line-height: 1.82;
+    color: var(--mid);
+    margin-bottom: 0.8rem;
+  }
+
+  .modal-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .modal-pill {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    border: 1px solid var(--blush);
+    padding: 0.3rem 0.8rem;
+    color: var(--mid);
+    background: var(--cream);
+  }
+
+  .modal-outcome {
+    background: var(--charcoal);
+    color: var(--warm-white);
+    padding: 1.5rem 1.8rem;
+    margin-top: 2rem;
+  }
+
+  .modal-outcome h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.6rem;
+  }
+
+  .modal-outcome p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(250,247,243,0.75);
+  }
+
+  .modal-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-divider h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    white-space: nowrap;
+    color: var(--charcoal);
+  }
+
+  .section-divider h2 em { font-style: italic; color: var(--accent); }
+
+  .section-divider .line {
+    flex: 1;
+    height: 1px;
+    background: var(--blush);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .proj-card.featured {
+      grid-column: 1 / -1;
+      grid-template-columns: 1fr;
+    }
+    .proj-card.featured .card-visual { min-height: 200px; }
+    .modal-two-col { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-header { padding: 7rem 1.5rem 3rem; }
+    .projects-section { padding: 3rem 1.5rem 5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .modal-body { padding: 1.8rem 1.5rem 2rem; }
+    .modal-body h2 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="shimaa_portfolio.html" class="logo">Shimaa Abu Al-Qumboz</a>
+  <a href="shimaa_portfolio.html" class="back-link">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M10 3L5 8l5 5"/>
+    </svg>
+    Back to Portfolio
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="inner">
+    <p class="eyebrow">Case Studies · 2024–2025</p>
+    <h1>Selected <em>Projects</em></h1>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+      <button class="filter-btn" onclick="filterCards('mobile', this)">Mobile App</button>
+      <button class="filter-btn" onclick="filterCards('web', this)">Web Platform</button>
+      <button class="filter-btn" onclick="filterCards('ecommerce', this)">E-Commerce</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="projects-section">
+
+  <!-- Tahrar — featured wide -->
+  <div class="section-divider reveal">
+    <h2>Case Study <em>01</em></h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="projects-grid reveal" style="margin-bottom:3.5rem;">
+    <div class="proj-card featured" data-tag="mobile" onclick="openModal('tahrar')">
+      <div class="card-visual">
+        <div class="card-img tahrar">
+          <span class="card-big-icon">🧠</span>
+        </div>
+        <span class="card-num">01</span>
+        <span class="card-tag-badge">Mobile · Mental Health</span>
+        <div class="card-overlay"><span>View Case Study</span></div>
+      </div>
+      <div class="card-body">
+        <p class="cat">Mental Health · Arabic-Speaking Users · 12 Weeks</p>
+        <h3>Tahrar</h3>
+        <p>A mobile mental health application designed to support Arabic-speaking users in managing psychological well-being. Focused on reducing stigma, building emotional awareness, and connecting users with professional support — all through a culturally sensitive interface.</p>
+        <div class="card-meta">
+          <span class="role-pill">UX/UI Designer</span>
+          <span class="duration">12 weeks · Mobile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eta + Infinity -->
+  <div class="section-divider reveal">
+    <h2>Case Studies <em>02 & 03</em></h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="projects-grid reveal">
+    <div class="proj-card" data-tag="web" onclick="openModal('eta')">
+      <div class="card-visual">
+        <div class="card-img eta">
+          <span class="card-big-icon">💧</span>
+        </div>
+        <span class="card-num">02</span>
+        <span class="card-tag-badge">Web · Humanitarian</span>
+        <div class="card-overlay"><span>View Case Study</span></div>
+      </div>
+      <div class="card-body">
+        <p class="cat">Humanitarian · Multi-stakeholder · 6 Weeks</p>
+        <h3>Eta</h3>
+        <p>A water distribution and contribution platform supporting humanitarian and health-focused organizations. Designed around transparency, trust, and ethical communication for a multi-stakeholder audience.</p>
+        <div class="card-meta">
+          <span class="role-pill">UX/UI Designer</span>
+          <span class="duration">6 weeks · Web</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card" data-tag="ecommerce" onclick="openModal('infinity')">
+      <div class="card-visual">
+        <div class="card-img inf">
+          <span class="card-big-icon">✨</span>
+        </div>
+        <span class="card-num">03</span>
+        <span class="card-tag-badge">E-Commerce · Print-on-Demand</span>
+        <div class="card-overlay"><span>View Case Study</span></div>
+      </div>
+      <div class="card-body">
+        <p class="cat">E-Commerce · Print-on-Demand · 6 Weeks</p>
+        <h3>Infinity</h3>
+        <p>A conceptual print-on-demand e-commerce platform letting users create and order customized gifts and products — through manual design tools or AI-powered generation — with real-time mockups and clear pricing.</p>
+        <div class="card-meta">
+          <span class="role-pill">UX/UI Designer</span>
+          <span class="duration">6 weeks · Web</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder for more projects -->
+    <div class="proj-card" style="border-style:dashed; opacity:0.5; pointer-events:none;" data-tag="other">
+      <div class="card-visual" style="min-height:230px; background:var(--cream); display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:2rem; opacity:0.3;">+</span>
+      </div>
+      <div class="card-body">
+        <p class="cat">More Projects</p>
+        <h3 style="font-size:1.3rem; opacity:0.5;">Coming Soon</h3>
+        <p>Additional case studies and explorations available on Behance.</p>
+        <div class="card-meta">
+          <a href="https://www.behance.net/shimaaabualqumboz" target="_blank" style="font-size:0.72rem; color:var(--accent); text-decoration:none; letter-spacing:0.08em; pointer-events:all;">Visit Behance →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── MODAL: TAHRAR ── -->
+<div class="modal-overlay" id="modal-tahrar" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-hero" style="background:var(--tahrar-bg);">
+      <span>🧠</span>
+      <span class="m-num">01</span>
+    </div>
+    <div class="modal-body">
+      <p class="m-cat">Mobile App · Mental Health · Arabic-Speaking Users</p>
+      <h2>Tahrar</h2>
+      <p class="m-meta">Role: UX/UI Designer &nbsp;·&nbsp; Duration: 12 Weeks</p>
+
+      <div class="modal-section">
+        <h4>Context & Problem</h4>
+        <p>Tahrar is a mobile mental health application designed to support users in managing psychological well-being, with a focus on conditions such as anxiety, depression, and work-related stress. The app targets Arabic-speaking users and aims to make mental health support more accessible, structured, and culturally sensitive.</p>
+        <p>The platform combines access to mental health specialists and doctors, guided programs, educational podcasts, and interactive self-assessment tools. It also encourages users to engage with their mental and physical states through daily emotional check-ins and personalized recommendations.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Design Question</h4>
+        <p>How might we design a mental health application that helps users understand, track, and improve their psychological well-being while reducing stigma and supporting emotional awareness in an Arabic-speaking context?</p>
+      </div>
+
+      <div class="modal-two-col">
+        <div class="modal-section">
+          <h4>Research Insights</h4>
+          <p>Users often struggle to recognize and name their emotional states, feel overwhelmed by complex mental health information, and hesitate to seek professional help due to stigma. They expressed a preference for experiences that feel supportive rather than clinical, with gradual engagement instead of immediate commitment.</p>
+        </div>
+        <div class="modal-section">
+          <h4>Design Response</h4>
+          <div class="modal-pills">
+            <span class="modal-pill">Calm visual language</span>
+            <span class="modal-pill">Soft colors & clear spacing</span>
+            <span class="modal-pill">Guided mental health flows</span>
+            <span class="modal-pill">Non-judgmental language</span>
+            <span class="modal-pill">Progressive disclosure</span>
+            <span class="modal-pill">Optional mood check-ins</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Reflection & Learnings</h4>
+        <p>This project emphasized the role of safety, anonymity, and tone in mental health design. Allowing users to control their identity increased openness and trust within the platform. Testing was limited in scale, and long-term community behavior was not evaluated — the app is designed as a supportive system, not a substitute for professional care.</p>
+      </div>
+
+      <div class="modal-outcome">
+        <h4>Key Outcome</h4>
+        <p>Testing showed that users could more easily identify and reflect on their emotional states. Mental health measures were perceived as supportive rather than diagnostic. The community feature reduced fear of judgment and encouraged open expression through chosen characters and anonymity controls.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: ETA ── -->
+<div class="modal-overlay" id="modal-eta" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-hero" style="background:var(--eta-bg);">
+      <span>💧</span>
+      <span class="m-num">02</span>
+    </div>
+    <div class="modal-body">
+      <p class="m-cat">Web Platform · Humanitarian · Multi-Stakeholder</p>
+      <h2>Eta</h2>
+      <p class="m-meta">Role: UX/UI Designer &nbsp;·&nbsp; Duration: 6 Weeks</p>
+
+      <div class="modal-section">
+        <h4>Context & Problem</h4>
+        <p>ETA is a water distribution and contribution platform that supports humanitarian and health-focused organizations by facilitating water delivery, donations, and coordination with partner entities. The platform works in collaboration with international and regional organizations focused on human health and emergency response.</p>
+        <p>The project operates within a multi-stakeholder ecosystem involving donors, partner organizations, and distribution teams. The core challenge was to communicate trust, credibility, and impact while making complex humanitarian processes understandable to a broad audience.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Design Challenge</h4>
+        <p>How might we design a platform that supports transparent water distribution and humanitarian collaboration while remaining clear, credible, and accessible to diverse stakeholders?</p>
+      </div>
+
+      <div class="modal-two-col">
+        <div class="modal-section">
+          <h4>Process & Decisions</h4>
+          <div class="modal-pills">
+            <span class="modal-pill">Structured contribution flow</span>
+            <span class="modal-pill">Partner legitimacy signals</span>
+            <span class="modal-pill">Reduced contribution friction</span>
+            <span class="modal-pill">Neutral language & visuals</span>
+            <span class="modal-pill">Information architecture focus</span>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h4>Reflection</h4>
+          <p>This project strengthened the ability to design for systems rather than individuals, and to consider ethics, trust, and responsibility as core UX concerns. Future exploration could include impact visualization, real-time distribution tracking, and scalable partnership frameworks.</p>
+        </div>
+      </div>
+
+      <div class="modal-outcome">
+        <h4>Key Outcome</h4>
+        <p>The final design presents ETA as a trustworthy and well-structured humanitarian platform, emphasizing transparency and ease of contribution. Users can clearly identify partner organizations, understand the flow of water distribution, and engage with the platform without cognitive overload.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: INFINITY ── -->
+<div class="modal-overlay" id="modal-infinity" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-hero" style="background:var(--infinity-bg);">
+      <span>✨</span>
+      <span class="m-num">03</span>
+    </div>
+    <div class="modal-body">
+      <p class="m-cat">E-Commerce · Print-on-Demand · AI-Assisted Design</p>
+      <h2>Infinity</h2>
+      <p class="m-meta">Role: UX/UI Designer &nbsp;·&nbsp; Duration: 6 Weeks</p>
+
+      <div class="modal-section">
+        <h4>Context & Problem</h4>
+        <p>Infinity is a conceptual e-commerce platform focused on print-on-demand services, allowing users to create and order customized gifts, advertisements, and printed products. The platform bridges creativity and production by enabling users to transform ideas into physical items through both manual design tools and AI-powered generation.</p>
+        <p>Unlike traditional e-commerce platforms, Infinity emphasizes co-creation, personalization, and experimentation — making design accessible even to users without creative or technical skills.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Conceptual Framework</h4>
+        <p>The design is organized around three core pillars:</p>
+        <div class="modal-pills" style="margin-top:0.8rem;">
+          <span class="modal-pill">🎨 Create — manual tools or AI generation</span>
+          <span class="modal-pill">👁 Preview — realistic product mockups</span>
+          <span class="modal-pill">📦 Order — seamless checkout & tracking</span>
+        </div>
+      </div>
+
+      <div class="modal-two-col">
+        <div class="modal-section">
+          <h4>Visual Language</h4>
+          <div class="modal-pills">
+            <span class="modal-pill">Clean modular layout</span>
+            <span class="modal-pill">Neutral base colors</span>
+            <span class="modal-pill">Bold accent colors</span>
+            <span class="modal-pill">Real-time mockups</span>
+            <span class="modal-pill">Clear pricing feedback</span>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h4>Key Design Decision</h4>
+          <p>AI generation was intentionally kept as an optional support tool rather than the default entry point — ensuring users retained creative control while reducing friction for those starting without a clear idea.</p>
+        </div>
+      </div>
+
+      <div class="modal-outcome">
+        <h4>Key Outcome</h4>
+        <p>Infinity was designed as a high-fidelity e-commerce platform focused on print-on-demand products. The platform concept was well received for its clarity, flexibility, and strong emphasis on visual confidence before purchase. The complete user journey covers idea generation through checkout and order management.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  // ── Filter ──
+  function filterCards(tag, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.proj-card').forEach(card => {
+      const match = tag === 'all' || card.dataset.tag === tag;
+      card.style.opacity = match ? '1' : '0.25';
+      card.style.pointerEvents = match ? 'all' : 'none';
+    });
+  }
+
+  // ── Modal ──
+  let currentModal = null;
+
+  function openModal(id) {
+    if (currentModal) currentModal.classList.remove('open');
+    currentModal = document.getElementById('modal-' + id);
+    currentModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (e && e.target !== document.querySelector('.modal-overlay.open') && !e.target.classList.contains('modal-close')) return;
+    if (currentModal) {
+      currentModal.classList.remove('open');
+      currentModal = null;
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal({ target: document.querySelector('.modal-overlay.open') });
+  });
+</script>
+</body>
+</html>

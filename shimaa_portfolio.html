@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shimaa N. Abu Al-Qumboz — UX/UI Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0ea;
+    --warm-white: #faf7f3;
+    --blush: #e8d5c4;
+    --sage: #b8c4b1;
+    --charcoal: #2a2420;
+    --mid: #6b5f58;
+    --accent: #c4956a;
+    --light-accent: #f0e4d7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.4rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,247,243,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,149,106,0.15);
+  }
+
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 30%, rgba(232,213,196,0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(184,196,177,0.3) 0%, transparent 70%),
+      var(--warm-white);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300;
+    line-height: 0.92;
+    color: var(--charcoal);
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    margin-top: 2.5rem;
+    max-width: 480px;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--mid);
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.6s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--charcoal);
+    color: var(--warm-white);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--blush);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* decorative ring */
+  .hero-ring {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgba(196,149,106,0.25);
+    border-radius: 50%;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1s forwards;
+  }
+
+  .hero-ring::after {
+    content: '';
+    position: absolute;
+    inset: 30px;
+    border: 1px solid rgba(196,149,106,0.12);
+    border-radius: 50%;
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 7rem 3rem; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+  }
+
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  .inner { max-width: 1100px; margin: 0 auto; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--cream); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 3.5rem;
+  }
+
+  .about-img-wrap {
+    position: relative;
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    display: block;
+    filter: sepia(10%) saturate(90%);
+  }
+
+  .about-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -16px -16px 16px 16px;
+    border: 1px solid rgba(196,149,106,0.35);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .about-img-wrap img { position: relative; z-index: 1; }
+
+  .about-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+  }
+
+  .about-text p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--mid);
+    margin-bottom: 1.2rem;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--warm-white); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .skill-card {
+    background: var(--cream);
+    padding: 2rem 2rem 2.5rem;
+    border: 1px solid rgba(196,149,106,0.12);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(42,36,32,0.08);
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    color: var(--charcoal);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--mid);
+    background: var(--warm-white);
+    border: 1px solid var(--blush);
+    padding: 0.3rem 0.7rem;
+  }
+
+  .tools-row {
+    margin-top: 1.5rem;
+    grid-column: 1 / -1;
+    background: var(--charcoal);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tools-row h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--warm-white);
+    flex: 0 0 auto;
+    margin-right: 1rem;
+  }
+
+  .tool-pill {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(196,149,106,0.4);
+    padding: 0.35rem 0.9rem;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--cream); }
+
+  .projects-stack {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(196,149,106,0.15);
+    overflow: hidden;
+    transition: box-shadow 0.4s;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 20px 60px rgba(42,36,32,0.1);
+  }
+
+  .project-card:nth-child(even) { direction: rtl; }
+  .project-card:nth-child(even) > * { direction: ltr; }
+
+  .project-visual {
+    background: var(--warm-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-visual .proj-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10rem;
+    font-weight: 300;
+    color: rgba(196,149,106,0.1);
+    position: absolute;
+    bottom: -1rem;
+    right: 1rem;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .proj-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .proj-icon.teal { background: rgba(72,192,187,0.15); }
+  .proj-icon.blue { background: rgba(82,155,213,0.15); }
+  .proj-icon.yellow { background: rgba(255,223,0,0.15); }
+
+  .project-info {
+    padding: 3.5rem;
+    background: var(--warm-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .project-info .proj-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .project-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin-bottom: 0.3rem;
+  }
+
+  .project-info .meta {
+    font-size: 0.75rem;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .project-info p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .proj-outcome {
+    background: var(--light-accent);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.2rem;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+    margin-top: auto;
+  }
+
+  /* ── ACADEMIC ── */
+  #academic { background: var(--charcoal); }
+
+  #academic .section-label { color: var(--sage); }
+  #academic .section-title { color: var(--warm-white); }
+  #academic .section-title em { color: var(--sage); }
+
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin-top: 3.5rem;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .research-item {
+    background: var(--charcoal);
+    padding: 2.2rem 2.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+  }
+
+  .research-item:hover { background: rgba(255,255,255,0.04); }
+
+  .research-item .r-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: rgba(196,149,106,0.3);
+    margin-bottom: 0.8rem;
+  }
+
+  .research-item p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(250,247,243,0.6);
+  }
+
+  .academic-body {
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(250,247,243,0.55);
+    max-width: 700px;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--warm-white); }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 3.5rem;
+  }
+
+  .contact-details dt {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    margin-top: 1.8rem;
+  }
+
+  .contact-details dt:first-child { margin-top: 0; }
+
+  .contact-details dd {
+    font-size: 0.95rem;
+    color: var(--mid);
+  }
+
+  .contact-details a {
+    color: var(--charcoal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--blush);
+    padding-bottom: 1px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .contact-details a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .contact-message {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--charcoal);
+  }
+
+  .contact-message em { font-style: italic; color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(196,149,106,0.15);
+  }
+
+  footer p {
+    font-size: 0.75rem;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid,
+    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .project-card,
+    .project-card:nth-child(even) { grid-template-columns: 1fr; direction: ltr; }
+    .research-grid { grid-template-columns: 1fr; }
+    .hero-ring { display: none; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">Shimaa Abu Al-Qumboz</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#academic">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">UX / UI Designer &nbsp;·&nbsp; Human-Centered Design</p>
+    <h1 class="hero-title">
+      Designing<br><em>with intent</em><br>& empathy.
+    </h1>
+    <p class="hero-sub">
+      I craft interfaces that bridge language, culture, and technology — making complex systems feel human, clear, and accessible.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <p class="section-label reveal">About</p>
+    <h2 class="section-title reveal">A designer shaped by <em>language</em> & curiosity.</h2>
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <!-- Placeholder for photo -->
+        <div style="width:100%; aspect-ratio:4/5; background: linear-gradient(135deg, var(--blush) 0%, var(--sage) 100%); display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--charcoal); opacity:0.5; letter-spacing:0.1em;">Shimaa N. Abu Al-Qumboz</span>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <h3>From translation to interaction design.</h3>
+        <p>
+          My approach to design is informed by my background in English Translation, where I developed a sensitivity to language, context, and interpretation. Studying translation trained me to listen carefully and understand how meaning shifts across structures and systems — an awareness that later shaped my interest in UX/UI design.
+        </p>
+        <p>
+          I was initially drawn to design through color and visual expression, but it quickly became a problem-solving practice. I now approach design as a research-driven and iterative process, focused on understanding how people interact with digital systems and how interfaces influence behavior and decision making.
+        </p>
+        <p>
+          My work centers on creating clear, human-centered interfaces that respect cognitive diversity and bridge communication gaps. I am particularly interested in the intersection of language, culture, and technology — where design can act as a mediator between people and complex systems.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <p class="section-label reveal">Skills & Methods</p>
+    <h2 class="section-title reveal">How I <em>think</em> and build.</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card reveal">
+        <h4>Research & Insight</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">User Interviews</span>
+          <span class="skill-tag">Competitive Analysis</span>
+          <span class="skill-tag">Usability Testing</span>
+          <span class="skill-tag">Journey Mapping</span>
+          <span class="skill-tag">Heuristic Evaluation</span>
+          <span class="skill-tag">Contextual Inquiry</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <h4>Interaction Design</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Wireframing</span>
+          <span class="skill-tag">Prototyping</span>
+          <span class="skill-tag">User Flows</span>
+          <span class="skill-tag">Information Architecture</span>
+          <span class="skill-tag">Design Systems</span>
+          <span class="skill-tag">Accessibility</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <h4>Interface & Systems</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Visual Design</span>
+          <span class="skill-tag">Typography</span>
+          <span class="skill-tag">Component Libraries</span>
+          <span class="skill-tag">Color Systems</span>
+          <span class="skill-tag">Responsive Layouts</span>
+          <span class="skill-tag">Cross-platform Design</span>
+        </div>
+      </div>
+
+      <div class="tools-row reveal">
+        <h4>Tools</h4>
+        <span class="tool-pill">Figma</span>
+        <span class="tool-pill">Adobe XD</span>
+        <span class="tool-pill">Framer</span>
+        <span class="tool-pill">Photoshop</span>
+        <span class="tool-pill">Notion</span>
+        <span class="tool-pill">Canva</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="inner">
+    <p class="section-label reveal">Case Studies</p>
+    <h2 class="section-title reveal">Selected <em>work</em>.</h2>
+  </div>
+
+  <div class="inner projects-stack" style="margin-top:3rem;">
+
+    <!-- TAHRAR -->
+    <div class="project-card reveal">
+      <div class="project-visual">
+        <div class="proj-icon teal">🧠</div>
+        <span class="proj-num">01</span>
+      </div>
+      <div class="project-info">
+        <p class="proj-tag">Mobile App &nbsp;·&nbsp; Mental Health &nbsp;·&nbsp; 12 Weeks</p>
+        <h3>Tahrar</h3>
+        <p class="meta">Role: UX/UI Designer</p>
+        <p>
+          A mobile mental health application designed to support Arabic-speaking users in managing psychological well-being — addressing anxiety, depression, and work-related stress. The platform combines access to specialists, guided programs, educational podcasts, and interactive self-assessment tools.
+        </p>
+        <p>
+          Research revealed users often struggle to name their emotional states and hesitate to seek professional help due to stigma. The design response prioritized calm visual language, non-judgmental copy, and progressive disclosure of information.
+        </p>
+        <div class="proj-outcome">
+          <strong>Key Outcome:</strong> Users could more easily identify and reflect on their emotional states. The community feature reduced fear of judgment and encouraged open expression through anonymity controls.
+        </div>
+      </div>
+    </div>
+
+    <!-- ETA -->
+    <div class="project-card reveal">
+      <div class="project-visual">
+        <div class="proj-icon blue">💧</div>
+        <span class="proj-num">02</span>
+      </div>
+      <div class="project-info">
+        <p class="proj-tag">Web Platform &nbsp;·&nbsp; Humanitarian &nbsp;·&nbsp; 6 Weeks</p>
+        <h3>Eta</h3>
+        <p class="meta">Role: UX/UI Designer</p>
+        <p>
+          ETA is a water distribution and contribution platform supporting humanitarian and health-focused organizations. The platform works within a multi-stakeholder ecosystem involving donors, partner organizations, and distribution teams.
+        </p>
+        <p>
+          The design process focused on clarity, structure, and ethical communication — structuring information to explain how contributions are allocated, presenting partner organizations to reinforce credibility, and prioritizing neutral language to avoid sensationalizing humanitarian work.
+        </p>
+        <div class="proj-outcome">
+          <strong>Key Outcome:</strong> The final design presents ETA as a trustworthy humanitarian platform. Users can clearly identify partner organizations and engage without cognitive overload.
+        </div>
+      </div>
+    </div>
+
+    <!-- INFINITY -->
+    <div class="project-card reveal">
+      <div class="project-visual">
+        <div class="proj-icon yellow">✨</div>
+        <span class="proj-num">03</span>
+      </div>
+      <div class="project-info">
+        <p class="proj-tag">E-Commerce Platform &nbsp;·&nbsp; Print-on-Demand &nbsp;·&nbsp; 6 Weeks</p>
+        <h3>Infinity</h3>
+        <p class="meta">Role: UX/UI Designer</p>
+        <p>
+          A conceptual e-commerce platform focused on print-on-demand services, allowing users to create and order customized gifts, advertisements, and printed products. The platform bridges creativity and production through both manual design tools and AI-powered generation.
+        </p>
+        <p>
+          The design is organized around three core pillars: <strong>Create</strong> (generate or upload designs), <strong>Preview</strong> (visualize on realistic mockups), and <strong>Order</strong> (seamless checkout and tracking). AI generation was intentionally kept as an optional support tool to preserve creative control.
+        </p>
+        <div class="proj-outcome">
+          <strong>Key Outcome:</strong> The platform concept was well-received for its clarity, flexibility, and strong emphasis on visual confidence before purchase.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACADEMIC -->
+<section id="academic">
+  <div class="inner">
+    <p class="section-label reveal">Academic Direction</p>
+    <h2 class="section-title reveal">Research I'm <em>drawn</em> to.</h2>
+    <p class="academic-body reveal">
+      The projects in this portfolio reflect my growing interest in the intersection of design, culture, and technology. Each case study explores how interface design can be more inclusive, more culturally aware, and more aligned with human values. This work has led me to pursue further study in Human–Computer Interaction (HCI) and UX research.
+    </p>
+
+    <div class="research-grid" style="margin-top:3rem;">
+      <div class="research-item reveal">
+        <div class="r-num">01</div>
+        <p>Cross-cultural interface design and RTL language support — exploring how directionality and cultural context shape digital interaction.</p>
+      </div>
+      <div class="research-item reveal">
+        <div class="r-num">02</div>
+        <p>Design for social impact and civic engagement — how interfaces can facilitate participation, trust, and community action.</p>
+      </div>
+      <div class="research-item reveal">
+        <div class="r-num">03</div>
+        <p>Accessibility and inclusive design practices — ensuring digital systems are usable by people with diverse cognitive and physical abilities.</p>
+      </div>
+      <div class="research-item reveal">
+        <div class="r-num">04</div>
+        <p>The role of design in addressing environmental challenges — information design for behavioral change and sustainability communication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="section-title reveal">Let's <em>connect</em>.</h2>
+    <div class="contact-inner">
+
+      <p class="contact-message reveal">
+        I'm always open to thoughtful conversations about design, research, and collaboration. <em>Let's build something meaningful together.</em>
+      </p>
+
+      <dl class="contact-details reveal">
+        <dt>Email</dt>
+        <dd><a href="mailto:shimaa.trans.ar@gmail.com">shimaa.trans.ar@gmail.com</a></dd>
+
+        <dt>Phone</dt>
+        <dd>+970 595 232 472</dd>
+
+        <dt>Portfolio</dt>
+        <dd><a href="https://www.behance.net/shimaaabualqumboz" target="_blank">behance.net/shimaaabualqumboz</a></dd>
+
+        <dt>LinkedIn</dt>
+        <dd><a href="https://www.linkedin.com/in/shimaa-abu-alqumboz-a48743246/" target="_blank">linkedin.com/in/shimaa-abu-alqumboz</a></dd>
+      </dl>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Shimaa N. Abu Al-Qumboz</p>
+  <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem;">Human-centered interaction design & systems thinking</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80 * (entry.target.dataset.delay || 0));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach((el, i) => {
+    el.dataset.delay = i % 4;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
