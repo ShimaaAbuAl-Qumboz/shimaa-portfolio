@@ -615,7 +615,7 @@
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Work</a></li>
+    <li><a href="projects.html">Work</a></li>
     <li><a href="#academic">Research</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -634,7 +634,7 @@
       I craft interfaces that bridge language, culture, and technology — making complex systems feel human, clear, and accessible.
     </p>
     <div class="hero-cta">
-      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="projects.html" class="btn-primary">View My Work</a>
       <a href="#contact" class="btn-ghost">Get in Touch</a>
     </div>
   </div>
@@ -730,6 +730,7 @@
   <div class="inner">
     <p class="section-label reveal">Case Studies</p>
     <h2 class="section-title reveal">Selected <em>work</em>.</h2>
+    <a href="projects.html" style="display:inline-block; margin-top:1.2rem; font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); text-decoration:none; border-bottom:1px solid var(--blush); padding-bottom:2px;" class="reveal">View Full Project Showcase →</a>
   </div>
 
   <div class="inner projects-stack" style="margin-top:3rem;">
@@ -846,7 +847,7 @@
 
       <dl class="contact-details reveal">
         <dt>Email</dt>
-        <dd><a href="mailto:shimaa.trans.ar@gmail.com">shimaa.trans.ar@gmail.com</a></dd>
+        <dd><a href="/cdn-cgi/l/email-protection#3b485352565a5a154f495a5548155a497b5c565a525715585456"><span class="__cf_email__" data-cfemail="3a495253575b5b144e485b5449145b487a5d575b535614595557">[email&#160;protected]</span></a></dd>
 
         <dt>Phone</dt>
         <dd>+970 595 232 472</dd>
@@ -868,7 +869,7 @@
   <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem;">Human-centered interaction design & systems thinking</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -876,16 +877,3 @@
       if (entry.isIntersecting) {
         setTimeout(() => {
           entry.target.classList.add('visible');
-        }, 80 * (entry.target.dataset.delay || 0));
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  reveals.forEach((el, i) => {
-    el.dataset.delay = i % 4;
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
