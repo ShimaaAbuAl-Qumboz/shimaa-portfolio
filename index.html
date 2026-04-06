@@ -37,7 +37,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(250,247,243,0.85);
+    background: rgba(250,247,243,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(196,149,106,0.15);
   }
@@ -48,6 +48,8 @@
     letter-spacing: 0.08em;
     color: var(--charcoal);
     text-decoration: none;
+    z-index: 101;
+    position: relative;
   }
 
   nav ul {
@@ -66,6 +68,72 @@
   }
 
   nav ul a:hover { color: var(--accent); }
+
+  /* hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 101;
+    position: relative;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--charcoal);
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--warm-white);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:hover { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    nav { padding: 1.1rem 1.5rem; }
+  }
 
   /* ── HERO ── */
   #hero {
@@ -619,7 +687,19 @@
     <li><a href="#academic">Research</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="projects.html" onclick="closeMenu()">Work</a>
+  <a href="#academic" onclick="closeMenu()">Research</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -833,44 +913,68 @@
     </div>
   </div>
 </section>
- 
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="inner">
     <p class="section-label reveal">Contact</p>
     <h2 class="section-title reveal">Let's <em>connect</em>.</h2>
     <div class="contact-inner">
- 
+
       <p class="contact-message reveal">
         I'm always open to thoughtful conversations about design, research, and collaboration. <em>Let's build something meaningful together.</em>
       </p>
- 
+
       <dl class="contact-details reveal">
         <dt>Email</dt>
-        <dd><span style="user-select:all">shimaa.trans.ar@gmail.com</span></dd>
- 
+        <dd><span style="user-select:all"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="45362d2c2824246b3137242b366b2437052228242c296b262a28">[email&#160;protected]</a></span></dd>
+
         <dt>Phone</dt>
         <dd>+970 595 232 472</dd>
- 
+
         <dt>Portfolio</dt>
         <dd><a href="https://www.behance.net/shimaaabualqumboz" target="_blank">behance.net/shimaaabualqumboz</a></dd>
- 
+
         <dt>LinkedIn</dt>
         <dd><a href="https://www.linkedin.com/in/shimaa-abu-alqumboz-a48743246/" target="_blank">linkedin.com/in/shimaa-abu-alqumboz</a></dd>
       </dl>
- 
+
     </div>
   </div>
 </section>
- 
+
 <!-- FOOTER -->
 <footer>
   <p>© 2026 Shimaa N. Abu Al-Qumboz</p>
   <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem;">Human-centered interaction design & systems thinking</p>
 </footer>
- 
- 
-<script>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      hamburger.classList.add('open');
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  // Close menu on scroll
+  window.addEventListener('scroll', closeMenu, { passive: true });
+
   function startReveal() {
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -888,17 +992,8 @@
       observer.observe(el);
     });
   }
- 
+
   // Run on first load
   startReveal();
- 
-  // Re-run when navigating back (fixes blank page on back button)
-  window.addEventListener('pageshow', function(e) {
-    if (e.persisted) {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
-      startReveal();
-    }
-  });
-</script>
-</body>
-</html>
+
+  // Re-run when navigating back (fixes blank page on b
