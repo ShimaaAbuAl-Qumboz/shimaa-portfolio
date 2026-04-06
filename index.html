@@ -869,11 +869,36 @@
   <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem;">Human-centered interaction design & systems thinking</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
+
+<script>
+  function startReveal() {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80 * (entry.target.dataset.delay || 0));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach((el, i) => {
+      el.dataset.delay = i % 4;
+      observer.observe(el);
+    });
+  }
+
+  // Run on first load
+  startReveal();
+
+  // Re-run when navigating back (fixes blank page on back button)
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
+      startReveal();
+    }
+  });
+</script>
+</body>
+</html>
